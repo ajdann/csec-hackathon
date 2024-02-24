@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  # Your backend service configuration...
+  backend:
+    # ... other configurations
+
+  # MySQL database service configuration
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: your_database_name
+      MYSQL_USER: csec
+      MYSQL_PASSWORD: your_password
+      MYSQL_ROOT_PASSWORD: your_root_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql 
+    networks:
+      - csec
+
+networks:
+  csec:
