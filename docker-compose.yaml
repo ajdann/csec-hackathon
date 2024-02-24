@@ -1,9 +1,19 @@
 version: "3.9"
 
 services:
-  # Your backend service configuration...
   backend:
-    # ... other configurations
+    build: ./backend
+    ports:
+      - "3000:3000" # Map container port 3000 to host port 3000
+    networks:
+      - csec
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80" # Map container port 80 to host port 80
+    networks:
+      - csec
 
   # MySQL database service configuration
   mysql:
