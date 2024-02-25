@@ -19,13 +19,13 @@ export const authenticateToken = (
     })
 }
 
-export const authorize = async (requiredRoles) => {
-    return async (req, res, next) => {
+export const authorizeLabTechnician = async (req: any, res: any, next: any) => {
+    const requiredRoles = ['labTech']
 
-        const user = req.user;
+    const user: any = req.user;
 
-        //Parameters were parametirized instead of string interpolation
-        const queryString = `
+    //Parameters were parametirized instead of string interpolation
+    const queryString = `
             SELECT roles.name AS 
                 roleName 
             FROM 
@@ -38,13 +38,13 @@ export const authorize = async (requiredRoles) => {
                 users.id = ?;
             `;
 
-        const userRole = await query(queryString, user.id);
+    const userRole: any = await query(queryString, user.id);
 
-        if (!requiredRoles.includes(userRole)) {
-            return res.status(403).json({ message: 'Unauthorized' });
-        }
+    if (!requiredRoles.includes(userRole)) {
+        return res.status(403).json({ message: 'Unauthorized' });
+    }
 
-        const allowedColumns = `
+    const allowedColumns = `
             SELECT DISTINCT 
                 dc.id, dc.name
             FROM 
@@ -57,14 +57,57 @@ export const authorize = async (requiredRoles) => {
                 r.id = ?;
             `;
 
-        const dataColumns = await query(allowedColumns);
+    const dataColumns = await query(allowedColumns);
 
-        res.locals.columns = dataColumns ?? [];
+    res.locals.columns = dataColumns ?? [];
 
-        next();
-    };
+    next();
 };
 
+export const authorizeDoctor = async (req: any, res: any, next: any) => {
+
+    const requiredRoles = ['doctor'];
+    const user: any = req.user;
+
+    //Parameters were parametirized instead of string interpolation
+    const queryString = `
+            SELECT roles.name AS 
+                roleName 
+            FROM 
+                users 
+            JOIN 
+                roles 
+            ON 
+                users.roleId = roles.id 
+            WHERE 
+                users.id = ?;
+            `;
+
+    const userRole: any = await query(queryString, user.id);
+
+    if (!requiredRoles.includes(userRole)) {
+        return res.status(403).json({ message: 'Unauthorized' });
+    }
+
+    const allowedColumns = `
+            SELECT DISTINCT 
+                dc.id, dc.name
+            FROM 
+                dataColumns dc
+            JOIN 
+                permissions p ON dc.id = p.columnId
+            JOIN 
+                roles r ON p.roleId = r.id
+            WHERE 
+                r.id = ?;
+            `;
+
+    const dataColumns = await query(allowedColumns);
+
+    res.locals.columns = dataColumns ?? [];
+
+    next();
+};
 
 export const paginationCheck = (
     req: Request,

@@ -3,11 +3,11 @@ import mysql, { Connection, ConnectionOptions, ErrorPacketParams } from 'mysql2/
 //TODO prebaciti u env 
 const access: ConnectionOptions = {
     connectionLimit: 15,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    localAddress: process.env.URI,
-    port: Number(process.env.DB_PORT),
-    database: process.env.DB
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    localAddress: process.env.MYSQL_URI,
+    port: Number(process.env.MYSQL_PORT),
+    database: process.env.MYSQL_DATABASE
 };
 
 const connect = async (): Promise<Connection> => {
