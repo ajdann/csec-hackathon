@@ -6,7 +6,6 @@ import { authenticateToken, bodyCheck } from './middlewares/middleware';
 
 //Services
 
-
 const router = express.Router();
 
 router.post('/login', [bodyCheck], async (req: Request, res: Response) => {
