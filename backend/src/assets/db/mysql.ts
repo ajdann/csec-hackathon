@@ -2,15 +2,16 @@ import mysql, { Connection, ConnectionOptions, ErrorPacketParams } from 'mysql2/
 
 //TODO prebaciti u env 
 const access: ConnectionOptions = {
-    user: "root",
-    password: "admin",
-    localAddress: "localhost",
-    port: 3306,
-    database: "csec_hackathon"
+    connectionLimit: 15,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    localAddress: process.env.URI,
+    port: Number(process.env.DB_PORT),
+    database: process.env.DB
 };
 
 const connect = async (): Promise<Connection> => {
-    return await mysql.createConnection(access);
+    return await mysql.createPool(access);
 }
 
 //Mediator pattern reference
