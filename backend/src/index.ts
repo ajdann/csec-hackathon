@@ -6,7 +6,7 @@ import * as bodyParser from "body-parser";
 import { resolve } from 'path';
 import dotenv from 'dotenv';
 import { options } from './assets/cors';
-
+import cookieParser from 'cookie-parser';
 //Controllers
 import userRoutes from "./controllers/user"
 import readingRoutes from "./controllers/reading";
@@ -36,6 +36,8 @@ const limiter = rateLimit({
 })
 
 app.use(limiter);
+
+app.use(cookieParser());
 
 app.use("/user", userRoutes);
 app.use("/reading", readingRoutes);
