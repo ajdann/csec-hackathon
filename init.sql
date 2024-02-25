@@ -100,9 +100,9 @@ INSERT INTO roles (name) VALUES ('doctor');
 
 INSERT INTO users (name, surname, type, email, password, roleId) 
 VALUES 
-    ('LabTech1', 'Surname1', 1, 'labtech1@example.com', 'password1', (SELECT id FROM roles WHERE name = 'labTechnician'));
+    ('LabTech1', 'Surname1', 1, 'labtech1@example.com', '$2a$12$agl7cxvwrMHXdLBuczI1oO03Xv/ta3oII5z/TVGiCyrmPP/qv8geG', (SELECT id FROM roles WHERE name = 'labTechnician'));
 
 
 INSERT INTO users (name, surname, type, email, password, roleId) 
 VALUES 
-    ('Doctor1', 'Surname1', 2, 'doctor1@example.com', 'password1', (SELECT id FROM roles WHERE name = 'doctor'));
+    ('Doctor1', 'Surname1', 2, 'doctor1@example.com', '$2a$12$agl7cxvwrMHXdLBuczI1oO03Xv/ta3oII5z/TVGiCyrmPP/qv8geG', (SELECT id FROM roles WHERE name = 'doctor'));

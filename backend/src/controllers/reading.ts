@@ -5,7 +5,7 @@ import { authenticateToken, authorizeLabTechnician, authorizeDoctor, bodyCheck }
 
 const router = express.Router();
 
-router.get('/', [authenticateToken], async (req: Request, res: Response) => {
+router.get('/', [], async (req: Request, res: Response) => {
     const data = await getReadings();
     res.status(200).json(data);
 });

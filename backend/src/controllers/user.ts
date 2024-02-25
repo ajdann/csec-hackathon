@@ -9,6 +9,7 @@ import { authenticateToken, bodyCheck } from './middlewares/middleware';
 const router = express.Router();
 
 router.post('/login', [bodyCheck], async (req: Request, res: Response) => {
+    console.log("loginn")
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).send('Email and password are required');
