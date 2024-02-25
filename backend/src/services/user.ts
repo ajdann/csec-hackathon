@@ -7,7 +7,7 @@ const addLoginData = async (userId: string, email: string): Promise<string> => {
 
     return token;
 }
-
+let user: any;
 export const login = async (email: string, password: string): Promise<string> => {
     const queryEmail =
         `SELECT 
@@ -20,7 +20,7 @@ export const login = async (email: string, password: string): Promise<string> =>
     email = ?;
     `;
 
-    const user = await query(
+    user = await query(
         queryEmail,
         createSQLParameters(email)
     );

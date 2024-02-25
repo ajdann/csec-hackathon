@@ -30,6 +30,7 @@
         "xss": "^1.0.14"
     },
     "devDependencies": {
+        "@types/bcrypt": "^5.0.2",
         "@types/cookie-parser": "^1.4.6",
         "@types/cors": "^2.8.17"
     }
