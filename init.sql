@@ -91,3 +91,18 @@ VALUES ('Patient B', 38.2, 92.8, 0.9, 22.3, 16.5, 215.4, 140.8, 4.5, 140.2, fals
 -- Insert 3
 INSERT INTO readings (target_names, hct, mcv, kreatinin, ast, alt, ldh, ck, kalij, natrij, laka, srednja, teska)
 VALUES ('Patient C', 40.7, 88.6, 1.5, 28.9, 21.4, 260.1, 165.3, 3.8, 134.7, true, false, false);
+
+
+
+INSERT INTO roles (name) VALUES ('labTechnician');
+INSERT INTO roles (name) VALUES ('doctor');
+
+
+INSERT INTO users (name, surname, type, email, password, roleId) 
+VALUES 
+    ('LabTech1', 'Surname1', 1, 'labtech1@example.com', 'password1', (SELECT id FROM roles WHERE name = 'labTechnician'));
+
+
+INSERT INTO users (name, surname, type, email, password, roleId) 
+VALUES 
+    ('Doctor1', 'Surname1', 2, 'doctor1@example.com', 'password1', (SELECT id FROM roles WHERE name = 'doctor'));
