@@ -1,5 +1,6 @@
 import { Request, Response, RequestHandler, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { query } from '../../assets/db/mysql';
 
 //JWT Authentication Tutorial - Node.js (Youtube)
 export const authenticateToken = (
@@ -17,6 +18,53 @@ export const authenticateToken = (
         next();
     })
 }
+
+export const authorize = async (requiredRoles) => {
+    return async (req, res, next) => {
+
+        const user = req.user;
+
+        //Parameters were parametirized instead of string interpolation
+        const queryString = `
+            SELECT roles.name AS 
+                roleName 
+            FROM 
+                users 
+            JOIN 
+                roles 
+            ON 
+                users.roleId = roles.id 
+            WHERE 
+                users.id = ?;
+            `;
+
+        const userRole = await query(queryString, user.id);
+
+        if (!requiredRoles.includes(userRole)) {
+            return res.status(403).json({ message: 'Unauthorized' });
+        }
+
+        const allowedColumns = `
+            SELECT DISTINCT 
+                dc.id, dc.name
+            FROM 
+                dataColumns dc
+            JOIN 
+                permissions p ON dc.id = p.columnId
+            JOIN 
+                roles r ON p.roleId = r.id
+            WHERE 
+                r.id = ?;
+            `;
+
+        const dataColumns = await query(allowedColumns);
+
+        res.locals.columns = dataColumns ?? [];
+
+        next();
+    };
+};
+
 
 export const paginationCheck = (
     req: Request,

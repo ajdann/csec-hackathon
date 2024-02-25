@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 
+//External packages
 import cors from 'cors';
 import * as bodyParser from "body-parser";
 import { resolve } from 'path';
@@ -23,6 +24,18 @@ dotenv.config({ path: resolve(__dirname, ".env") });
 app.use(cors(options));
 
 app.use(express.json());
+
+import { rateLimit } from 'express-rate-limit'
+
+//Prevent spam
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+})
+
+app.use(limiter);
 
 app.use("/user", userRoutes);
 app.use("/reading", readingRoutes);
