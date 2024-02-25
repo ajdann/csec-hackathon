@@ -5,7 +5,7 @@ SET GLOBAL default_table_encryption=ON;
 CREATE DATABASE IF NOT EXISTS csec_hackathon;
 
 -- Create a user with limited privileges
---CREATE USER IF NOT EXISTS 'csec'@'csec-network' IDENTIFIED BY 'supersecretpassword';
+CREATE USER IF NOT EXISTS 'csec'@'%' IDENTIFIED BY 'supersecretpassword';
 
 -- Grant necessary privileges to the user
 GRANT SELECT, INSERT, UPDATE, DELETE ON csec_hackathon.* TO 'csec'@'%';
@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS roles (
     isDeleted BOOLEAN DEFAULT false,
     createdOn DATETIME DEFAULT (CURRENT_DATE()),
     updatedOn DATETIME,
-    name VARCHAR(255),
-)
+    name VARCHAR(255)
+);
 
 CREATE TABLE IF NOT EXISTS users (
     id VARCHAR(255) PRIMARY KEY DEFAULT (UUID()),
@@ -51,14 +51,14 @@ CREATE TABLE IF NOT EXISTS dataColumns (
     createdOn DATETIME DEFAULT (CURRENT_DATE()),
     updatedOn DATETIME,
     name VARCHAR(255)
-)
+);
 
 CREATE TABLE IF NOT EXISTS permissions (
     columnId VARCHAR(255),
     FOREIGN KEY (columnId) REFERENCES dataColumns(id),
     roleId VARCHAR(255),
     FOREIGN KEY (roleId) REFERENCES roles(id)
-)
+);
 
 CREATE TABLE IF NOT EXISTS readings (
     id VARCHAR(255) PRIMARY KEY DEFAULT (UUID()),
@@ -78,4 +78,4 @@ CREATE TABLE IF NOT EXISTS readings (
     laka BOOLEAN,
     srednja BOOLEAN,
     teska BOOLEAN
-)
+);
