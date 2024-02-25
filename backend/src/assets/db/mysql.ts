@@ -3,8 +3,8 @@ import mysql, { Connection, ConnectionOptions, ErrorPacketParams } from 'mysql2/
 //TODO prebaciti u env 
 const access: ConnectionOptions = {
     connectionLimit: 15,
-    user: "root",
-    password:"root",
+    user: "csec",
+    password:"jakotezakpassword123",
     host: "csec-mysql",
     port: Number(3306),
     database: "csec_hackathon"

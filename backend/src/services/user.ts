@@ -27,10 +27,7 @@ export const login = async (email: string, password: string): Promise<string> =>
         createSQLParameters(email)
     );
     console.log(user)
-    if (user.length === 0) {
-        console.log("User not found");
-        // return "User not found"; // or throw new Error("User not found");
-    }
+
 
     const passwordMatch = dehashPassword(password, user[0].password);
     if (passwordMatch) {
