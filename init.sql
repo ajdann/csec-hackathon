@@ -79,3 +79,15 @@ CREATE TABLE IF NOT EXISTS readings (
     srednja BOOLEAN,
     teska BOOLEAN
 );
+
+-- Insert 1
+INSERT INTO readings (target_names, hct, mcv, kreatinin, ast, alt, ldh, ck, kalij, natrij, laka, srednja, teska)
+VALUES ('Patient A', 42.5, 90.3, 1.2, 25.6, 18.8, 240.7, 150.2, 4.1, 137.5, true, false, true);
+
+-- Insert 2
+INSERT INTO readings (target_names, hct, mcv, kreatinin, ast, alt, ldh, ck, kalij, natrij, laka, srednja, teska)
+VALUES ('Patient B', 38.2, 92.8, 0.9, 22.3, 16.5, 215.4, 140.8, 4.5, 140.2, false, true, false);
+
+-- Insert 3
+INSERT INTO readings (target_names, hct, mcv, kreatinin, ast, alt, ldh, ck, kalij, natrij, laka, srednja, teska)
+VALUES ('Patient C', 40.7, 88.6, 1.5, 28.9, 21.4, 260.1, 165.3, 3.8, 134.7, true, false, false);
