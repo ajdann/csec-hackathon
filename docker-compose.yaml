@@ -11,7 +11,7 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "80:80" # Map container port 80 to host port 80
+      - "3001:3001" # Map container port 80 to host port 80
     networks:
       - csec
 
@@ -19,10 +19,10 @@ services:
   mysql:
     image: mysql:8.0
     environment:
-      MYSQL_DATABASE: your_database_name
+      MYSQL_DATABASE: covid
       MYSQL_USER: csec
-      MYSQL_PASSWORD: your_password
-      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_PASSWORD: csec123
+      MYSQL_ROOT_PASSWORD: root
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql 
@@ -31,3 +31,6 @@ services:
 
 networks:
   csec:
+
+volumes:
+  mysql_data:
