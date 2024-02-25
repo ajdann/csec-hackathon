@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { login } from '../services/user';
 
 //Middleware
 import { authenticateToken, emptyBodyCheck } from './middlewares/middleware';
@@ -9,12 +10,16 @@ import { authenticateToken, emptyBodyCheck } from './middlewares/middleware';
 const router = express.Router();
 
 router.post('/login', [emptyBodyCheck], async (req: Request, res: Response) => {
-    const data = null; //await login(req.body as IUserLogin);
-    if (!data) {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        return res.status(400).send('Email and password are required');
+    }
+    const user = await login(email, password);
+    if (!user) {
         res.status(404).json("User could not be found!");
     }
     else {
-        res.status(200).json(data);
+        res.status(200).json(user);
     };
 })
 
