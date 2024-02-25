@@ -17,8 +17,8 @@ const Login: FC = () => {
   const handleLogin = async () => {
     try {
       const response = await axiosInstance.post("/user/login", {
-        username: email,
-        password: password,
+        email,
+        password,
       });
       if (response.data) {
         localStorage.setItem("access_token", response.data);
