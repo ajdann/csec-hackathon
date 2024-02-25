@@ -19,7 +19,7 @@ services:
 
   # MySQL database service configuration
   mysql:
-    container_name: mysql
+    container_name: csec-mysql
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: covid
