@@ -1,5 +1,8 @@
 import { Request, Response, RequestHandler, NextFunction } from 'express';
+
 import jwt from 'jsonwebtoken';
+import xss from 'xss';
+
 import { query } from '../../assets/db/mysql';
 
 //JWT Authentication Tutorial - Node.js (Youtube)
@@ -121,7 +124,7 @@ export const paginationCheck = (
     next();
 }
 
-export const emptyBodyCheck = (req: Request, res: Response, next: NextFunction) => {
+export const bodyCheck = (req: Request, res: Response, next: NextFunction) => {
     const emptyBody =
         (!req.body || Object.keys(req.body).length == 0) ?? false;
 
@@ -129,6 +132,11 @@ export const emptyBodyCheck = (req: Request, res: Response, next: NextFunction) 
         return res
             .status(400)
             .json({ message: "No data body provided!" });
+
+    //Sanitize body
+    const sanitizedData = xss(req.body.data);
+    req.body.data = sanitizedData;
+
     next();
 }
 

@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { query } from '../assets/db/mysql';
 import { getReadings } from '../services/reading';
-import { authenticateToken, authorizeLabTechnician, authorizeDoctor } from './middlewares/middleware';
+import { authenticateToken, authorizeLabTechnician, authorizeDoctor, bodyCheck } from './middlewares/middleware';
 
 const router = express.Router();
 
@@ -11,7 +11,7 @@ router.get('/', [authenticateToken], async (req: Request, res: Response) => {
 });
 
 //Add new data reading
-router.post('/', [authenticateToken, authorizeLabTechnician], async (req: Request, res: Response) => {
+router.post('/', [authenticateToken, authorizeLabTechnician, bodyCheck], async (req: Request, res: Response) => {
     const {
         target_names,
         hct,
@@ -52,7 +52,7 @@ router.post('/', [authenticateToken, authorizeLabTechnician], async (req: Reques
 
 
 //Edit data reading
-router.put('/:id', [authenticateToken, authorizeDoctor], async (req: Request, res: Response) => {
+router.put('/:id', [authenticateToken, authorizeDoctor, bodyCheck], async (req: Request, res: Response) => {
     const readingId = req.params.id;
     const body = req.body;
     const columns = [...res.locals.columns];
