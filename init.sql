@@ -5,7 +5,7 @@ SET GLOBAL default_table_encryption=ON;
 CREATE DATABASE IF NOT EXISTS csec_hackathon;
 
 -- Create a user with limited privileges
-CREATE USER IF NOT EXISTS 'csec'@'%' IDENTIFIED BY 'supersecretpassword';
+CREATE USER IF NOT EXISTS 'csec'@'%' IDENTIFIED BY 'jakotezakpassword123';
 
 -- Grant necessary privileges to the user
 GRANT SELECT, INSERT, UPDATE, DELETE ON csec_hackathon.* TO 'csec'@'%';
