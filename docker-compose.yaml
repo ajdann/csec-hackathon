@@ -19,12 +19,12 @@ services:
 
   # MySQL database service configuration
   mysql:
-    container_name: csec-mysql
+    container_name: mysql
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: covid
-      MYSQL_USER: csec
-      MYSQL_PASSWORD: csec123
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - mysql_data:/var/lib/mysql
