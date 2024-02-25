@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   backend:
+    container_name: backend
     build: ./backend
     ports:
       - "3000:3000" # Map container port 3000 to host port 3000
@@ -9,6 +10,7 @@ services:
       - csec
 
   frontend:
+    container_name: frontend
     build: ./frontend
     ports:
       - "3001:3000" # Map container port 80 to host port 80
@@ -17,6 +19,7 @@ services:
 
   # MySQL database service configuration
   mysql:
+    container_name: csec-mysql
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: covid
@@ -28,7 +31,8 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql 
     networks:
       - csec
-
+    ports:
+      - 3306:3306
 networks:
   csec:
 
