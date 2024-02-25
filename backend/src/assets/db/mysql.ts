@@ -3,11 +3,11 @@ import mysql, { Connection, ConnectionOptions, ErrorPacketParams } from 'mysql2/
 //TODO prebaciti u env 
 const access: ConnectionOptions = {
     connectionLimit: 15,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    localAddress: process.env.MYSQL_URI,
-    port: Number(process.env.MYSQL_PORT),
-    database: process.env.MYSQL_DATABASE
+    user: "root",
+    password:"root",
+    host: "csec-mysql",
+    port: Number(3306),
+    database: "csec_hackathon"
 };
 
 const connect = async (): Promise<Connection> => {
@@ -17,11 +17,12 @@ const connect = async (): Promise<Connection> => {
 //Mediator pattern reference
 export const query = async (query: string, params?: string[]) => {
     try {
+        console.log(access)
         const conn = await connect();
         var result = (await conn.query(query, params || []))[0];
         return result;
     } catch (error) {
-        throw new Error(JSON.stringify(error));
+        console.log(JSON.stringify(error));
     }
 }
 
@@ -37,7 +38,7 @@ export const command = async (query: string, params?: string[]) => {
         );
 
     } catch (error) {
-        throw new Error(JSON.stringify(error));
+        console.log(JSON.stringify(error));
     }
 }
 
@@ -54,6 +55,6 @@ export const multiQuery = async (queries: string[], params: string[][]) => {
             ]
         )
     } catch (error) {
-        throw new Error(JSON.stringify(error));
+        console.log(JSON.stringify(error));
     }
 }

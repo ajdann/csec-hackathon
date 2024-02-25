@@ -6,7 +6,6 @@ import * as bodyParser from "body-parser";
 import { resolve } from 'path';
 import dotenv from 'dotenv';
 import { options } from './assets/cors';
-
 //Controllers
 import userRoutes from "./controllers/user"
 import readingRoutes from "./controllers/reading";
@@ -20,7 +19,7 @@ app.use(bodyParser.json());
 
 //Ovo radi, resolve sa pathom je potreban u TS-u
 dotenv.config({ path: resolve(__dirname, ".env") });
-
+require('dotenv').config();
 app.use(cors(options));
 
 app.use(express.json());
